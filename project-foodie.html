@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Case Study: Foodie Fleet - Full-Stack Food Delivery Application by Bevara Sasi Kumar.">
+    <meta name="author" content="Bevara Sasi Kumar">
+    <title>Foodie Fleet | Case Study</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <!-- Page Transition Curtain -->
+    <div class="page-transition-overlay">
+        <div class="page-transition-logo">&lt;BSK /&gt;</div>
+        <div class="page-transition-loader"></div>
+    </div>
+
+    <!-- Background Cursor Glow Blob -->
+    <div class="cursor-glow-blob" id="cursor-glow-blob"></div>
+
+    <!-- Background Canvas for AI/Data Particle System -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="header scrolled">
+        <div class="container nav-container">
+            <a href="index.html#home" class="logo">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+            </a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                    <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                    <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                    <li><a href="index.html#education" class="nav-link">Education</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Header -->
+        <section class="case-study-hero">
+            <div class="container">
+                <a href="projects.html" class="cs-back-btn"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                <span class="section-subtitle">Case Study</span>
+                <h1 style="font-size: 3rem; font-family: var(--font-heading); font-weight: 800;">FOODIE FLEET</h1>
+                <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 700; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase;">
+                    Reactive E-Commerce Food Logistics Application
+                </p>
+
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <span class="meta-value">Full-Stack Development</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Architecture</span>
+                        <span class="meta-value">Decoupled REST API</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tech Stack</span>
+                        <span class="meta-value">React.js, Django framework, MongoDB NoSQL, CSS Flexbox</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date</span>
+                        <span class="meta-value">Jan 2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Content -->
+        <section class="section-padding" style="padding-top: 40px;">
+            <div class="container">
+                <div class="case-study-layout">
+                    <!-- Left Column: Details -->
+                    <div class="cs-left-col">
+                        <div class="cs-section">
+                            <h3>Project Overview</h3>
+                            <p>
+                                <strong>Foodie Fleet</strong> is a responsive full-stack food delivery application designed to handle high-frequency menu catalogs, real-time cart states, user profile sessions, and transactional orders. The project bridges a decoupled frontend (React.js) with a secure backend application engine (Django) powered by a flexible MongoDB schema.
+                            </p>
+                            <p>
+                                Rather than relying on rigid database structures, the menu details are served as flexible, query-optimized JSON payloads, reducing server load times and providing page transitions that feel instantaneous for the user.
+                            </p>
+                        </div>
+
+                        <div class="cs-section">
+                            <h3>Architecture & Database Design</h3>
+                            <p><strong>1. RESTful JSON Middleware</strong><br>
+                               We designed structured API endpoints in Django. These act as secure channels, authenticating user sessions via Token-based verification, and piping catalogs down to the client React engine.
+                            </p>
+                            <p><strong>2. MongoDB Document Models</strong><br>
+                               Utilizing MongoDB database structures lets the menu items have varying schemas (e.g. customizations, side choices, dietary tags) without requiring costly table alterations, keeping the application scalable.
+                            </p>
+                            <p><strong>3. Reactive Cart State Management</strong><br>
+                               The shopping cart maintains immediate recalculations entirely client-side using JavaScript state variables. Item counts, delivery estimates, taxes, and vouchers recalculate instantly on card events.
+                            </p>
+                        </div>
+
+                        <div class="cs-section">
+                            <h3>Interactive Shopping Cart Kiosk</h3>
+                            <p>
+                                Test out the reactive cart logic below! Add menu items to your tray, watch items aggregate with pricing details in the side panel, and click **"Checkout"** to trigger a step-by-step mock order dispatch tracker.
+                            </p>
+                            
+                            <!-- Interactive Cart Demo -->
+                            <div class="cart-simulator glass-card">
+                                <h4 style="font-family: var(--font-heading); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-shopping-basket" style="color: var(--accent-cyan);"></i> Fleet Order Station
+                                </h4>
+
+                                <div class="demo-grid-wrapper">
+                                    <!-- Menu list -->
+                                    <div class="cart-menu-grid">
+                                        <div class="menu-item-card" data-id="1" data-name="Super Cheeseburger" data-price="8.99">
+                                            <div class="menu-item-details">
+                                                <h5>Super Cheeseburger</h5>
+                                                <span class="menu-item-price">$8.99</span>
+                                            </div>
+                                            <button class="menu-item-add add-to-cart-btn"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="menu-item-card" data-id="2" data-name="Gourmet Veggie Pizza" data-price="12.49">
+                                            <div class="menu-item-details">
+                                                <h5>Gourmet Veggie Pizza</h5>
+                                                <span class="menu-item-price">$12.49</span>
+                                            </div>
+                                            <button class="menu-item-add add-to-cart-btn"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="menu-item-card" data-id="3" data-name="Golden Truffle Fries" data-price="3.99">
+                                            <div class="menu-item-details">
+                                                <h5>Golden Truffle Fries</h5>
+                                                <span class="menu-item-price">$3.99</span>
+                                            </div>
+                                            <button class="menu-item-add add-to-cart-btn"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                        <div class="menu-item-card" data-id="4" data-name="Fresh Caesar Salad" data-price="6.99">
+                                            <div class="menu-item-details">
+                                                <h5>Fresh Caesar Salad</h5>
+                                                <span class="menu-item-price">$6.99</span>
+                                            </div>
+                                            <button class="menu-item-add add-to-cart-btn"><i class="fas fa-plus"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cart side panel -->
+                                    <div class="cart-panel">
+                                        <div>
+                                            <div class="cart-title">
+                                                <span>Your Tray</span>
+                                                <span id="tray-count" style="font-size: 0.85rem; color: var(--accent-purple);">0 items</span>
+                                            </div>
+                                            
+                                            <div class="cart-items-list" id="cart-items-list">
+                                                <div style="font-size: 0.85rem; color: var(--text-secondary); text-align: center; margin-top: 30px;" id="empty-cart-msg">
+                                                    Tray is currently empty. Add items to start.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <!-- Summary calculations -->
+                                            <div class="cart-summary">
+                                                <div style="display: flex; justify-content: space-between;">
+                                                    <span>Subtotal:</span>
+                                                    <span id="summary-subtotal">$0.00</span>
+                                                </div>
+                                                <div style="display: flex; justify-content: space-between;">
+                                                    <span>Delivery Fee:</span>
+                                                    <span id="summary-delivery">$0.00</span>
+                                                </div>
+                                                <div style="display: flex; justify-content: space-between;">
+                                                    <span>Sales Tax (10%):</span>
+                                                    <span id="summary-tax">$0.00</span>
+                                                </div>
+                                                <div class="cart-summary-total">
+                                                    <span>Total Estimate:</span>
+                                                    <span id="summary-total">$0.00</span>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-primary btn-block" style="margin-top: 16px;" id="cart-checkout-btn" disabled>
+                                                Place Order <i class="fas fa-shipping-fast"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Stepper tracker -->
+                                <div class="order-tracking" id="order-tracking-section">
+                                    <h5 style="font-family: var(--font-heading); margin-bottom: 16px;">Live Order Dispatch Stepper</h5>
+                                    
+                                    <div class="order-stepper">
+                                        <div class="step-item" id="step-0">
+                                            <div class="step-dot">1</div>
+                                            <span class="step-label">Placed</span>
+                                        </div>
+                                        <div class="step-item" id="step-1">
+                                            <div class="step-dot">2</div>
+                                            <span class="step-label">Kitchen</span>
+                                        </div>
+                                        <div class="step-item" id="step-2">
+                                            <div class="step-dot">3</div>
+                                            <span class="step-label">Dispatch</span>
+                                        </div>
+                                        <div class="step-item" id="step-3">
+                                            <div class="step-dot">4</div>
+                                            <span class="step-label">Arrived</span>
+                                        </div>
+                                    </div>
+                                    <div style="font-size: 0.8rem; font-family: monospace; color: #34d399; text-align: center;" id="stepper-log">
+                                        &gt; Order processing...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Visuals & Stats -->
+                    <div class="cs-right-col">
+                        <div class="glass-card" style="padding: 28px; border-radius: var(--radius-lg); margin-bottom: 30px;">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 20px; font-size: 1.25rem;">Security & Performance</h4>
+                            
+                            <ul style="display: flex; flex-direction: column; gap: 16px;">
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-lock" style="color: var(--accent-cyan); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">JWT Authentication</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Securing order histories and dispatch permissions using signed tokens.</span>
+                                    </div>
+                                </li>
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-tachometer-alt" style="color: var(--accent-cyan); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Debounced Searches</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Catalog search inputs are debounced to optimize MongoDB request load.</span>
+                                    </div>
+                                </li>
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-network-wired" style="color: var(--accent-cyan); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Django REST Framework</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Decoupled serializers validating input values before processing.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card" style="padding: 28px; border-radius: var(--radius-lg);">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 12px; font-size: 1.25rem;">Key Performance Metrics</h4>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px;">
+                                <div>
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">Client Query Load Time</span>
+                                    <div class="progress-bar-container" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 90%; background: var(--accent-gradient);"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: var(--accent-cyan); float: right; margin-top: 4px;">~150ms Response</span>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">Responsive Mobile Compatibility</span>
+                                    <div class="progress-bar-container" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 100%; background: var(--accent-gradient);"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: var(--accent-cyan); float: right; margin-top: 4px;">100% Flexbox Grid Fit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+                <p>Data Analyst & AI Full Stack Developer</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2026 Bevara Sasi Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- JavaScript logics for Cursor, Transitions, Particles & Cart Simulator -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme setup
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = themeToggleBtn.querySelector('i');
+            const savedTheme = localStorage.getItem('theme') || 'dark-theme';
+            document.body.className = savedTheme;
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (document.body.classList.contains('dark-theme')) {
+                    document.body.classList.replace('dark-theme', 'light-theme');
+                    localStorage.setItem('theme', 'light-theme');
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    document.body.classList.replace('light-theme', 'dark-theme');
+                    localStorage.setItem('theme', 'dark-theme');
+                    themeIcon.className = 'fas fa-moon';
+                }
+                if (window.initParticles) window.initParticles();
+            });
+
+            // Mobile menu
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('open');
+                navMenu.classList.toggle('open');
+            });
+
+            // Custom cursor follow physics
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.custom-cursor-dot');
+            const glowBlob = document.getElementById('cursor-glow-blob');
+            let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0, glowX = 0, glowY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+            });
+
+            function updateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                if (cursor) { cursor.style.left = `${cursorX}px`; cursor.style.top = `${cursorY}px`; }
+
+                dotX += (mouseX - dotX) * 0.35;
+                dotY += (mouseY - dotY) * 0.35;
+                if (cursorDot) { cursorDot.style.left = `${dotX}px`; cursorDot.style.top = `${dotY}px`; }
+
+                glowX += (mouseX - glowX) * 0.08;
+                glowY += (mouseY - glowY) * 0.08;
+                if (glowBlob) { glowBlob.style.left = `${glowX}px`; glowBlob.style.top = `${glowY}px`; }
+
+                requestAnimationFrame(updateCursor);
+            }
+            updateCursor();
+
+            // Link click hover events
+            function hoverClickables() {
+                const clickables = document.querySelectorAll('a, button, .tab-btn, .add-to-cart-btn, .qty-btn');
+                clickables.forEach(item => {
+                    item.addEventListener('mouseenter', () => document.body.classList.add('clickable-hovered'));
+                    item.addEventListener('mouseleave', () => document.body.classList.remove('clickable-hovered'));
+                });
+            }
+            hoverClickables();
+
+            // Page transitions
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            const transitionLogo = document.querySelector('.page-transition-logo');
+
+            if (transitionOverlay) {
+                gsap.set(transitionOverlay, { y: '0%' });
+                gsap.timeline()
+                    .to(transitionLogo, { opacity: 1, y: 0, duration: 0.4, delay: 0.2 })
+                    .to(transitionOverlay, {
+                        y: '-100%', duration: 0.6, ease: 'power3.inOut',
+                        onComplete: () => {
+                            gsap.set(transitionOverlay, { y: '100%' });
+                            gsap.set(transitionLogo, { opacity: 0, y: 20 });
+                        }
+                    });
+            }
+
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (!link) return;
+                const href = link.getAttribute('href');
+                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.getAttribute('target') === '_blank') return;
+
+                e.preventDefault();
+                document.body.classList.remove('clickable-hovered');
+                gsap.to(transitionOverlay, {
+                    y: '0%', duration: 0.5, ease: 'power3.inOut',
+                    onComplete: () => window.location.href = href
+                });
+            });
+
+            // ==========================================================================
+            // REACTIVE E-COMMERCE CART SIMULATOR LOGICS
+            // ==========================================================================
+            const addButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartItemsList = document.getElementById('cart-items-list');
+            const trayCountEl = document.getElementById('tray-count');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+            const subtotalEl = document.getElementById('summary-subtotal');
+            const deliveryEl = document.getElementById('summary-delivery');
+            const taxEl = document.getElementById('summary-tax');
+            const totalEl = document.getElementById('summary-total');
+            const checkoutBtn = document.getElementById('cart-checkout-btn');
+
+            const orderTracking = document.getElementById('order-tracking-section');
+            const stepItems = document.querySelectorAll('.step-item');
+            const stepperLog = document.getElementById('stepper-log');
+
+            let cart = [];
+
+            function updateCartUI() {
+                cartItemsList.innerHTML = '';
+                
+                if (cart.length === 0) {
+                    cartItemsList.appendChild(emptyMsg);
+                    trayCountEl.textContent = '0 items';
+                    subtotalEl.textContent = '$0.00';
+                    deliveryEl.textContent = '$0.00';
+                    taxEl.textContent = '$0.00';
+                    totalEl.textContent = '$0.00';
+                    checkoutBtn.disabled = true;
+                    return;
+                }
+
+                emptyMsg.remove();
+                let subtotal = 0;
+                let itemCount = 0;
+
+                cart.forEach(item => {
+                    subtotal += item.price * item.quantity;
+                    itemCount += item.quantity;
+
+                    const row = document.createElement('div');
+                    row.className = "cart-item-row";
+                    row.innerHTML = `
+                        <span>${item.name}</span>
+                        <div class="cart-item-qty">
+                            <button class="qty-btn" onclick="adjustQty(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="adjustQty(${item.id}, 1)">+</button>
+                            <span style="font-weight: 600; min-width: 45px; text-align: right;">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    `;
+                    cartItemsList.appendChild(row);
+                });
+
+                const deliveryFee = 2.99;
+                const tax = subtotal * 0.10;
+                const total = subtotal + deliveryFee + tax;
+
+                trayCountEl.textContent = `${itemCount} item${itemCount > 1 ? 's' : ''}`;
+                subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+                deliveryEl.textContent = `$${deliveryFee.toFixed(2)}`;
+                taxEl.textContent = `$${tax.toFixed(2)}`;
+                totalEl.textContent = `$${total.toFixed(2)}`;
+                checkoutBtn.disabled = false;
+                hoverClickables();
+            }
+
+            window.adjustQty = function(id, delta) {
+                const itemIndex = cart.findIndex(i => i.id === id);
+                if (itemIndex > -1) {
+                    cart[itemIndex].quantity += delta;
+                    if (cart[itemIndex].quantity <= 0) {
+                        cart.splice(itemIndex, 1);
+                    }
+                    updateCartUI();
+                }
+            }
+
+            addButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const card = e.target.closest('.menu-item-card');
+                    const id = parseInt(card.dataset.id);
+                    const name = card.dataset.name;
+                    const price = parseFloat(card.dataset.price);
+
+                    const existing = cart.find(i => i.id === id);
+                    if (existing) {
+                        existing.quantity++;
+                    } else {
+                        cart.push({ id, name, price, quantity: 1 });
+                    }
+                    updateCartUI();
+                    
+                    // Simple micro-scale animation on cart button click
+                    gsap.fromTo(card, { scale: 0.98 }, { scale: 1, duration: 0.2 });
+                });
+            });
+
+            checkoutBtn.addEventListener('click', () => {
+                checkoutBtn.disabled = true;
+                addButtons.forEach(b => b.disabled = true);
+                
+                // Show tracking view
+                orderTracking.classList.add('active');
+                gsap.from(orderTracking, { y: 20, opacity: 0, duration: 0.4 });
+
+                // Run stepper stages
+                runStepper();
+            });
+
+            function runStepper() {
+                const logs = [
+                    "&gt; Receipt confirmed. Dispatching order details to culinary server...",
+                    "&gt; Chef confirmed receipt. Ingredients assembled, preparing dish items...",
+                    "&gt; Quality audit passed. Order bagged and assigned to courier dispatch vehicle...",
+                    "&gt; Delivery completed! Courier returned signature trace. Thank you for using Foodie Fleet."
+                ];
+
+                let currentStep = 0;
+                stepItems.forEach(s => s.className = 'step-item');
+                
+                stepItems[0].className = 'step-item active';
+                stepperLog.innerHTML = logs[0];
+
+                const interval = setInterval(() => {
+                    stepItems[currentStep].className = 'step-item completed';
+                    currentStep++;
+
+                    if (currentStep < 4) {
+                        stepItems[currentStep].className = 'step-item active';
+                        stepperLog.innerHTML = logs[currentStep];
+                    } else {
+                        clearInterval(interval);
+                        // Finish demo
+                        setTimeout(() => {
+                            // Reset cart
+                            cart = [];
+                            updateCartUI();
+                            orderTracking.classList.remove('active');
+                            addButtons.forEach(b => b.disabled = false);
+                        }, 2500);
+                    }
+                }, 2000);
+            }
+
+            // Interactive particles system
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let particleCount = 60;
+            let mouse = { x: null, y: null, radius: 150 };
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX; mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseout', () => {
+                mouse.x = null; mouse.y = null;
+            });
+
+            class Particle {
+                constructor(x, y, dx, dy, size, color) {
+                    this.x = x; this.y = y; this.dx = dx; this.dy = dy; this.size = size; this.color = color;
+                }
+                draw() {
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill();
+                }
+                update() {
+                    if (this.x + this.size > canvas.width || this.x - this.size < 0) this.dx = -this.dx;
+                    if (this.y + this.size > canvas.height || this.y - this.size < 0) this.dy = -this.dy;
+                    this.x += this.dx; this.y += this.dy;
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let diffX = this.x - mouse.x; let diffY = this.y - mouse.y;
+                        let distance = Math.sqrt(diffX * diffX + diffY * diffY);
+                        if (distance < mouse.radius) {
+                            let force = (mouse.radius - distance) / mouse.radius;
+                            this.x += (diffX / distance) * force * 3; this.y += (diffY / distance) * force * 3;
+                        }
+                    }
+                    this.draw();
+                }
+            }
+
+            window.initParticles = function() {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                particles = [];
+                const isLightTheme = document.body.classList.contains('light-theme');
+                const particleColor = isLightTheme ? 'rgba(8, 145, 178, 0.2)' : 'rgba(6, 182, 212, 0.2)';
+                for (let i = 0; i < particleCount; i++) {
+                    let size = Math.random() * 2 + 1;
+                    particles.push(new Particle(
+                        Math.random() * canvas.width, Math.random() * canvas.height,
+                        (Math.random() - 0.5) * 0.6, (Math.random() - 0.5) * 0.6,
+                        size, particleColor
+                    ));
+                }
+            };
+
+            function connectParticles() {
+                const isLightTheme = document.body.classList.contains('light-theme');
+                const lineColorBase = isLightTheme ? '8, 145, 178' : '6, 182, 212';
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 110) {
+                            ctx.strokeStyle = `rgba(${lineColorBase}, ${(1 - (distance / 110)) * 0.12})`;
+                            ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) particles[i].update();
+                connectParticles();
+                requestAnimationFrame(animateParticles);
+            }
+
+            window.initParticles();
+            animateParticles();
+            window.addEventListener('resize', () => window.initParticles());
+        });
+    </script>
+</body>
+</html>

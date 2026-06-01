@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Bevara Sasi Kumar - Data Analyst & AI Full Stack Developer. Discover projects, skills, certifications, and experience in Data Analytics and Full Stack Web Development.">
+    <meta name="author" content="Bevara Sasi Kumar">
+    <meta name="keywords" content="Data Analyst, AI Full Stack Developer, Python, JavaScript, SQL, Django, React, Power BI, Portfolio, Bevara Sasi Kumar">
+    <title>Bevara Sasi Kumar | Data Analyst & AI Full Stack Developer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <!-- Page Transition Curtain -->
+    <div class="page-transition-overlay">
+        <div class="page-transition-logo">&lt;BSK /&gt;</div>
+        <div class="page-transition-loader"></div>
+    </div>
+
+    <!-- Background Cursor Glow Blob -->
+    <div class="cursor-glow-blob" id="cursor-glow-blob"></div>
+
+    <!-- Background Canvas for AI/Data Particle System -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+            </a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="projects.html" class="nav-link">Projects</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="hero-greeting">Hi there, I'm</span>
+                    <h1 class="hero-name">BEVARA SASI KUMAR</h1>
+                    <h2 class="hero-title">
+                        I am a <span class="typing-text" id="typing-text"></span>
+                    </h2>
+                    <p class="hero-description">
+                        Bridging the gap between raw data insights and modern intelligent web solutions. I design, build, and deploy full-stack applications with AI integrations and build rich data analytics dashboards.
+                    </p>
+                    <div class="hero-ctas">
+                        <a href="#contact" class="btn btn-primary">Let's Connect <i class="fas fa-paper-plane"></i></a>
+                        <!-- Resume Link -->
+                        <a href="https://drive.google.com/file/d/1gcBpis5qalGh2azL7xTd5y84laDA-ULh/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                            View Resume <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                    <div class="hero-socials">
+                        <a href="https://www.linkedin.com/in/bevara-sasikumar-479ab6267/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/SASIKUMAR-BEVARA" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://wa.me/918179396163" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:bevarasasikumar18@gmail.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="image-wrapper">
+                        <div class="glow-bg"></div>
+                        <img src="assets/profile.png" alt="Bevara Sasi Kumar" class="profile-img">
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <a href="#about" aria-label="Scroll Down">
+                    <span class="mouse">
+                        <span class="wheel"></span>
+                    </span>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Get To Know Me</span>
+                    <h2 class="section-title">About Me</h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="about-grid">
+                    <div class="about-info">
+                        <h3>Fusing Data Intelligence with Full-Stack Development</h3>
+                        <p>
+                            As a computer science graduate and an aspiring <strong>Data Analyst & AI Full Stack Developer</strong>, I am passionate about crafting applications that are not only highly functional but also backed by data-driven insights. I leverage modern frontend and backend architectures to build seamless user experiences, and utilize Python data science toolkits to extract trends and tell stories through statistics.
+                        </p>
+                        <p>
+                            My experience spans across software engineering disciplines and data pipelines, allowing me to develop applications end-to-end—from database design (SQL/MySQL) and backend APIs (Django) to responsive user interfaces (React/HTML/CSS) and analytical dashboards (Power BI/Tableau).
+                        </p>
+                        <p>
+                            I thrive on solving complex problems, building clean code structures, and applying generative AI and prompt engineering concepts to create next-generation automation tools.
+                        </p>
+                    </div>
+                    <div class="about-stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <span class="stat-number">7.01</span>
+                            <span class="stat-label">B.Tech CGPA</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+                            <span class="stat-number">6 Mon</span>
+                            <span class="stat-label">Internship Experience</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+                            <span class="stat-number">2+</span>
+                            <span class="stat-label">Major Projects</span>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-award"></i></div>
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Key Certifications</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">What I Bring to the Table</span>
+                    <h2 class="section-title">Technical Expertise</h2>
+                    <div class="section-underline"></div>
+                </div>
+
+                <div class="skills-tabs-container">
+                    <div class="skills-tabs">
+                        <button class="tab-btn active" data-tab="all">All Skills</button>
+                        <button class="tab-btn" data-tab="languages">Languages</button>
+                        <button class="tab-btn" data-tab="development">Web Development</button>
+                        <button class="tab-btn" data-tab="analytics">Data Analytics</button>
+                        <button class="tab-btn" data-tab="cloud">Tools & Cloud</button>
+                    </div>
+                </div>
+
+                <div class="skills-grid" id="skills-grid">
+                    <!-- Languages -->
+                    <div class="skill-card" data-category="languages">
+                        <div class="skill-icon"><i class="fab fa-python" style="color: #3776ab;"></i></div>
+                        <h4>Python</h4>
+                        <p class="skill-desc">Core language for analytical modeling, data cleaning, and Django backend services.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="languages">
+                        <div class="skill-icon"><i class="fab fa-js" style="color: #f7df1e;"></i></div>
+                        <h4>JavaScript</h4>
+                        <p class="skill-desc">Creating rich interactive user interfaces, dynamic events, and async operations.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="languages">
+                        <div class="skill-icon"><i class="fas fa-database" style="color: #00758f;"></i></div>
+                        <h4>SQL</h4>
+                        <p class="skill-desc">Writing complex queries, aggregate calculations, schema creations, and optimizations.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Development -->
+                    <div class="skill-card" data-category="development">
+                        <div class="skill-icon"><i class="fab fa-react" style="color: #61dafb;"></i></div>
+                        <h4>React.js</h4>
+                        <p class="skill-desc">Component-driven frontend design, state management, and real-time client-side rendering.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="development">
+                        <div class="skill-icon"><i class="fas fa-cogs" style="color: #092e20;"></i></div>
+                        <h4>Django</h4>
+                        <p class="skill-desc">MTV design pattern, secure authentication, database ORM mapping, and API endpoints.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="development">
+                        <div class="skill-icon"><i class="fab fa-html5" style="color: #e34f26;"></i></div>
+                        <h4>HTML5 & CSS3</h4>
+                        <p class="skill-desc">Semantic document models, responsive grid layouts, custom flexboxes, and web standard styling.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics -->
+                    <div class="skill-card" data-category="analytics">
+                        <div class="skill-icon"><i class="fas fa-chart-bar" style="color: #f2c811;"></i></div>
+                        <h4>Power BI</h4>
+                        <p class="skill-desc">Transforming multiple database sources into interactive dashboards and KPIs.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="analytics">
+                        <div class="skill-icon"><i class="fas fa-chart-pie" style="color: #e97627;"></i></div>
+                        <h4>Tableau</h4>
+                        <p class="skill-desc">Advanced data visualizations, interactive storyboards, and trend forecasts.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="analytics">
+                        <div class="skill-icon"><i class="fas fa-file-excel" style="color: #107c41;"></i></div>
+                        <h4>Excel</h4>
+                        <p class="skill-desc">Advanced formulas, PivotTables, lookup metrics, data cleanups, and macro automations.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="analytics">
+                        <div class="skill-icon"><i class="fas fa-calculator" style="color: #a855f7;"></i></div>
+                        <h4>Pandas & NumPy</h4>
+                        <p class="skill-desc">Data wrangling, matrix manipulation, data frame mergers, and statistical summaries.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="analytics">
+                        <div class="skill-icon"><i class="fas fa-brain" style="color: #06b6d4;"></i></div>
+                        <h4>Statistics & Prompt Eng.</h4>
+                        <p class="skill-desc">Hypothesis modeling, descriptive analyses, and context-tuned instructions for AI models.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cloud / Tools -->
+                    <div class="skill-card" data-category="cloud">
+                        <div class="skill-icon"><i class="fab fa-git-alt" style="color: #f05032;"></i></div>
+                        <h4>Git</h4>
+                        <p class="skill-desc">Branching systems, merging pathways, and local commit tracking logs.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="cloud">
+                        <div class="skill-icon"><i class="fab fa-github" style="color: #333;"></i></div>
+                        <h4>GitHub</h4>
+                        <p class="skill-desc">Repository hosting, workflow tracking, code reviews, and remote collaborations.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-category="cloud">
+                        <div class="fas fa-server" style="color: #006080; font-size: 2.2rem; margin-bottom: 1rem;"></div>
+                        <h4>MySQL & MongoDB</h4>
+                        <p class="skill-desc">Relational schema models and flexible Document stores for varied data scopes.</p>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">My Creative Showcase</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card" data-project="democracy">
+                        <div class="project-img-container">
+                            <div class="project-overlay-icon"><i class="fas fa-expand-alt"></i></div>
+                            <div class="project-badge">Blockchain / Web</div>
+                            <img src="assets/democracy_thumbnail.png" alt="Tokenizing Democracy" class="project-img-static" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="project-info">
+                            <h3>TOKENIZING DEMOCRACY</h3>
+                            <p class="project-summary">Blockchain-powered voting system designed for transparent governance and verifiable counts.</p>
+                            <div class="project-tech-tags">
+                                <span class="tag">Smart Contracts</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="project-democracy.html" class="btn btn-text page-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+                                <a href="https://github.com/SASIKUMAR-BEVARA" target="_blank" rel="noopener noreferrer" class="project-github-link" aria-label="Project Repository"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card" data-project="foodie">
+                        <div class="project-img-container">
+                            <div class="project-overlay-icon"><i class="fas fa-expand-alt"></i></div>
+                            <div class="project-badge">Full Stack</div>
+                            <img src="assets/foodie_thumbnail.png" alt="Foodie Fleet" class="project-img-static" style="width:100%; height:100%; object-fit:cover;">
+                        </div>
+                        <div class="project-info">
+                            <h3>FOODIE FLEET</h3>
+                            <p class="project-summary">Food delivery application featuring secure user profiles, item cards, and active dynamic updates.</p>
+                            <div class="project-tech-tags">
+                                <span class="tag">React.js</span>
+                                <span class="tag">Django</span>
+                                <span class="tag">MongoDB</span>
+                                <span class="tag">CSS</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="project-foodie.html" class="btn btn-text page-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+                                <a href="https://github.com/SASIKUMAR-BEVARA" target="_blank" rel="noopener noreferrer" class="project-github-link" aria-label="Project Repository"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Internship / Experience Section -->
+        <section id="experience" class="experience-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Professional Path</span>
+                    <h2 class="section-title">Work Experience</h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">Nov 2024 - Apr 2025 (6 Months)</div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3>Junior Analyst</h3>
+                                <span class="company">Vangrove Tech PVT LTD</span>
+                            </div>
+                            <p class="timeline-desc">
+                                Collaborated within cross-functional teams to process diverse datasets, perform exploratory analyses, and extract meaningful, actionable business insights. Supported executive decision-making processes through visual reports.
+                            </p>
+                            <div class="timeline-responsibilities">
+                                <h4>Key Responsibilities & Contributions:</h4>
+                                <ul>
+                                    <li>Built automated reporting models and interactive visual storyboards in Power BI and Tableau.</li>
+                                    <li>Wrote optimized SQL queries for extracting, structuring, and scrubbing user behavior details.</li>
+                                    <li>Implemented data parsing and data wrangling pipelines using Python, Pandas, and NumPy.</li>
+                                    <li>Leveraged LLM prompting architectures and Prompt Engineering techniques to streamline raw documentation summarization.</li>
+                                </ul>
+                            </div>
+                            <div class="timeline-tech">
+                                <span class="tag">Excel</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">SQL</span>
+                                <span class="tag">Power BI</span>
+                                <span class="tag">Tableau</span>
+                                <span class="tag">Statistics</span>
+                                <span class="tag">Prompt Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Certifications Section -->
+        <section id="education" class="education-section section-padding">
+            <div class="container">
+                <div class="edu-cert-grid">
+                    <!-- Education Column -->
+                    <div class="education-column">
+                        <div class="section-header align-left">
+                            <span class="section-subtitle">Academic Profile</span>
+                            <h2 class="section-title">Education</h2>
+                            <div class="section-underline"></div>
+                        </div>
+                        <div class="education-cards">
+                            <div class="edu-card">
+                                <div class="edu-year">2021 - 2025</div>
+                                <h3>Bachelor of Technology</h3>
+                                <span class="edu-branch">Computer Science and Engineering</span>
+                                <span class="edu-college"><i class="fas fa-university"></i> Parul University</span>
+                                <div class="edu-score">
+                                    <span class="score-label">CGPA:</span>
+                                    <span class="score-value">7.01 / 10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certifications Column -->
+                    <div class="certifications-column">
+                        <div class="section-header align-left">
+                            <span class="section-subtitle">Verified Skills</span>
+                            <h2 class="section-title">Certifications</h2>
+                            <div class="section-underline"></div>
+                        </div>
+                        <div class="certifications-list">
+                            <!-- Cert 1 -->
+                            <div class="cert-item">
+                                <div class="cert-icon"><i class="fab fa-python"></i></div>
+                                <div class="cert-info">
+                                    <h3>Basics of Python</h3>
+                                    <span class="issuer"><i class="fas fa-award"></i> Infosys Springboard</span>
+                                    <p>Foundations of programming logic, basic data structures, syntax constructs, and functions in Python.</p>
+                                </div>
+                            </div>
+                            <!-- Cert 2 -->
+                            <div class="cert-item">
+                                <div class="cert-icon"><i class="fas fa-database"></i></div>
+                                <div class="cert-info">
+                                    <h3>Database Fundamentals: Database Concepts</h3>
+                                    <span class="issuer"><i class="fas fa-award"></i> Infosys Springboard</span>
+                                    <p>Relational database principles, basic entity schemas, primary/foreign key connections, and standard SQL structures.</p>
+                                </div>
+                            </div>
+                            <!-- Cert 3 -->
+                            <div class="cert-item">
+                                <div class="cert-icon"><i class="fab fa-html5"></i></div>
+                                <div class="cert-info">
+                                    <h3>HTML - The Complete Guide to HTML</h3>
+                                    <span class="issuer"><i class="fas fa-award"></i> Udemy</span>
+                                    <p>Comprehensive studies on structural markup, layout nodes, accessibility, and modern responsive layouts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Let's Work Together</span>
+                    <h2 class="section-title">Contact Me</h2>
+                    <div class="section-underline"></div>
+                </div>
+                <div class="contact-grid">
+                    <!-- Contact Information -->
+                    <div class="contact-info-panel">
+                        <h3>Get in Touch</h3>
+                        <p>Feel free to reach out to discuss job opportunities, project collaborations, or just to say hello! I'm always open to talking about development or analytics workflows.</p>
+                        
+                        <div class="contact-methods">
+                            <!-- Email -->
+                            <div class="contact-method-card">
+                                <div class="icon"><i class="far fa-envelope"></i></div>
+                                <div class="details">
+                                    <span>Email Me</span>
+                                    <a href="mailto:bevarasasikumar18@gmail.com">bevarasasikumar18@gmail.com</a>
+                                </div>
+                            </div>
+                            <!-- Phone -->
+                            <div class="contact-method-card">
+                                <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                                <div class="details">
+                                    <span>Call Me</span>
+                                    <a href="tel:+916302017261">+91 6302017261</a>
+                                </div>
+                            </div>
+                            <!-- WhatsApp -->
+                            <div class="contact-method-card">
+                                <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                                <div class="details">
+                                    <span>WhatsApp Chat</span>
+                                    <a href="https://wa.me/918179396163" target="_blank" rel="noopener noreferrer">+91 8179396163</a>
+                                </div>
+                            </div>
+                            <!-- Location -->
+                            <div class="contact-method-card">
+                                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="details">
+                                    <span>Location</span>
+                                    <address>Madhapur, Hyderabad, Telangana 500081</address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-panel">
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" required placeholder="e.g. John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" required placeholder="e.g. john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-method">Preferred Reply Channel</label>
+                                <select id="contact-method">
+                                    <option value="email">Send via Email</option>
+                                    <option value="whatsapp">Send via WhatsApp</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" rows="5" required placeholder="Hello Sasi Kumar, I'd love to connect with you regarding..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" id="form-submit-btn">
+                                Send Message <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+                <p>Data Analyst & AI Full Stack Developer</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2026 Bevara Sasi Kumar. All rights reserved.</p>
+        </div>
+        <a href="#home" class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></a>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

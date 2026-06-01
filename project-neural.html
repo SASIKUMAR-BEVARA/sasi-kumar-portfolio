@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Case Study: Neural Core Chat Hub - Full-Stack AI Chat platform by Bevara Sasi Kumar.">
+    <meta name="author" content="Bevara Sasi Kumar">
+    <title>Neural Core Chat Hub | Case Study</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific Styles for AI Chat Simulator */
+        .ai-simulator {
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-top: 20px;
+        }
+        .ai-preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .preset-card {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            text-align: center;
+        }
+        .preset-card:hover {
+            border-color: var(--accent-purple);
+            background-color: var(--glow-purple);
+            transform: translateY(-2px);
+        }
+        .preset-card i {
+            font-size: 1.4rem;
+            color: var(--accent-purple);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .preset-card span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .ai-chat-screen {
+            background-color: #030712;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            height: 250px;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .chat-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .chat-bubble.user {
+            background-color: var(--bg-tertiary);
+            align-self: flex-end;
+            color: var(--text-primary);
+            border-bottom-right-radius: 2px;
+        }
+        .chat-bubble.assistant {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border: 1px solid var(--card-border);
+            align-self: flex-start;
+            color: var(--text-primary);
+            border-bottom-left-radius: 2px;
+        }
+        .token-counters-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--card-border);
+            padding-top: 12px;
+            margin-top: 12px;
+        }
+        .token-val {
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+        .ai-input-row {
+            display: flex;
+            gap: 12px;
+        }
+        .ai-input-field {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            padding: 12px;
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            outline: none;
+        }
+        .ai-input-field:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 8px var(--glow-purple);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <!-- Page Transition Curtain -->
+    <div class="page-transition-overlay">
+        <div class="page-transition-logo">&lt;BSK /&gt;</div>
+        <div class="page-transition-loader"></div>
+    </div>
+
+    <!-- Background Cursor Glow Blob -->
+    <div class="cursor-glow-blob" id="cursor-glow-blob"></div>
+
+    <!-- Background Canvas for AI/Data Particle System -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="header scrolled">
+        <div class="container nav-container">
+            <a href="index.html#home" class="logo">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+            </a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                    <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                    <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                    <li><a href="index.html#education" class="nav-link">Education</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Header -->
+        <section class="case-study-hero">
+            <div class="container">
+                <a href="projects.html" class="cs-back-btn"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                <span class="section-subtitle">Case Study</span>
+                <h1 style="font-size: 3rem; font-family: var(--font-heading); font-weight: 800;">NEURAL CORE CHAT HUB</h1>
+                <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 700; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase;">
+                    Decoupled AI Chat System with Custom Prompt Pipelines
+                </p>
+
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <span class="meta-value">AI Integration / Full Stack</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Server APIs</span>
+                        <span class="meta-value">Django Channels, OpenAI SDK</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tech Stack</span>
+                        <span class="meta-value">React.js, Python, CSS3 Grid, WebSockets</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date</span>
+                        <span class="meta-value">Feb 2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Content -->
+        <section class="section-padding" style="padding-top: 40px;">
+            <div class="container">
+                <div class="case-study-layout">
+                    <!-- Left Column: Details -->
+                    <div class="cs-left-col">
+                        <div class="cs-section">
+                            <h3>Project Overview</h3>
+                            <p>
+                                <strong>Neural Core Chat Hub</strong> is a decoupled, real-time AI conversational workspace built to facilitate contextual chat logs, custom instructions routing, and performance monitoring. By establishing permanent WebSockets links (Django Channels) between the browser and the python server core, the system streams chat generation tokens with sub-second latencies.
+                            </p>
+                            <p>
+                                Rather than loading basic API calls, the chat hub enforces prompt layout instructions. It runs user queries through an intermediary prompt-tuning script before querying LLM model weights, improving answer context accuracy.
+                            </p>
+                        </div>
+
+                        <div class="cs-section">
+                            <h3>Prompt Engineering & Pipelines</h3>
+                            <p><strong>1. Dynamic System Role Injection</strong><br>
+                               Translates high-level agent selections (e.g. Code Auditor, Data Analyst) into explicit formatting instruction lists appended to prompt payloads.
+                            </p>
+                            <p><strong>2. Streamed Response Rendering</strong><br>
+                               Uses JSON socket chunks. Instead of waiting for the full response completion, tokens are compiled in React local state and printed out character by character.
+                            </p>
+                            <p><strong>3. Transaction Tracking</strong><br>
+                               Calculates real-time query prices based on active model token costs, monitoring total execution fees across user sessions.
+                            </p>
+                        </div>
+
+                        <div class="cs-section">
+                            <h3>Interactive Prompt Workspace</h3>
+                            <p>
+                                Interact with the mock AI engine below! Click a **Preset Agent Card** to assign a system role and auto-fill a sample instruction, or write your own custom prompt, then hit **"Send"** to watch the conversational stream.
+                            </p>
+                            
+                            <!-- Interactive AI Chat Simulator Dashboard -->
+                            <div class="ai-simulator glass-card">
+                                <h4 style="font-family: var(--font-heading); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-microchip" style="color: var(--accent-purple);"></i> Neural Agent Workspace
+                                </h4>
+
+                                <!-- Preset Agents -->
+                                <div class="ai-preset-grid">
+                                    <div class="preset-card" data-agent="auditor" data-prompt="Audit this code for memory leaks: def read_large_file(): open('data.txt').read()">
+                                        <i class="fas fa-terminal"></i>
+                                        <span>Code Auditor</span>
+                                    </div>
+                                    <div class="preset-card" data-agent="analyst" data-prompt="Analyze this SQL query. Is it optimized? SELECT * FROM orders WHERE user_id = 12 LIMIT 10">
+                                        <i class="fas fa-database"></i>
+                                        <span>Data Analyst</span>
+                                    </div>
+                                    <div class="preset-card" data-agent="engineer" data-prompt="Create a system prompt instruction list that forces an LLM to answer only in structured JSON.">
+                                        <i class="fas fa-sliders-h"></i>
+                                        <span>Prompt Eng.</span>
+                                    </div>
+                                </div>
+
+                                <!-- Chat screen visual -->
+                                <div class="ai-chat-screen" id="ai-chat-screen">
+                                    <div class="chat-bubble assistant">
+                                        Hello Bevara Sasi Kumar. I am your local Neural Core assistant. Choose an agent profile above or type a custom instruction below.
+                                    </div>
+                                </div>
+
+                                <!-- Input control row -->
+                                <div class="ai-input-row">
+                                    <input type="text" class="ai-input-field" id="ai-prompt-input" placeholder="Type a prompt or click a preset card above...">
+                                    <button class="btn btn-primary" id="ai-send-btn">
+                                        Send <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Token display -->
+                                <div class="token-counters-row">
+                                    <span>Input Tokens: <span class="token-val" id="input-token-cnt">0</span></span>
+                                    <span>Output Tokens: <span class="token-val" id="output-token-cnt">0</span></span>
+                                    <span>Query Fee: <span class="token-val" id="query-fee-val">$0.00000</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Visuals & Stats -->
+                    <div class="cs-right-col">
+                        <div class="glass-card" style="padding: 28px; border-radius: var(--radius-lg); margin-bottom: 30px;">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 20px; font-size: 1.25rem;">Server Infrastructure</h4>
+                            
+                            <ul style="display: flex; flex-direction: column; gap: 16px;">
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-plug" style="color: var(--accent-purple); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">WebSockets Sync</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Using Django Channel workers for full-duplex socket connections.</span>
+                                    </div>
+                                </li>
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-memory" style="color: var(--accent-purple); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Session Memory (Redis)</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Redis stores active user session memory context for LLM history.</span>
+                                    </div>
+                                </li>
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-layer-group" style="color: var(--accent-purple); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Prompt Templates</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Dynamic template parser structuring contexts before model feed.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card" style="padding: 28px; border-radius: var(--radius-lg);">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 12px; font-size: 1.25rem;">System Performance</h4>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px;">
+                                <div>
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">Token Stream Latency</span>
+                                    <div class="progress-bar-container" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 96%; background: var(--accent-gradient);"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: var(--accent-purple); float: right; margin-top: 4px;">~80ms Time-to-First-Token</span>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">Memory Context Retention</span>
+                                    <div class="progress-bar-container" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 90%; background: var(--accent-gradient);"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: var(--accent-purple); float: right; margin-top: 4px;">Up to 20 Turns Saved</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+                <p>Data Analyst & AI Full Stack Developer</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2026 Bevara Sasi Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- JavaScript logics for Cursor, Transitions, Particles & Prompt Simulator -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme setup
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = themeToggleBtn.querySelector('i');
+            const savedTheme = localStorage.getItem('theme') || 'dark-theme';
+            document.body.className = savedTheme;
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (document.body.classList.contains('dark-theme')) {
+                    document.body.classList.replace('dark-theme', 'light-theme');
+                    localStorage.setItem('theme', 'light-theme');
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    document.body.classList.replace('light-theme', 'dark-theme');
+                    localStorage.setItem('theme', 'dark-theme');
+                    themeIcon.className = 'fas fa-moon';
+                }
+                if (window.initParticles) window.initParticles();
+            });
+
+            // Mobile menu
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('open');
+                navMenu.classList.toggle('open');
+            });
+
+            // Custom cursor follow physics
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.custom-cursor-dot');
+            const glowBlob = document.getElementById('cursor-glow-blob');
+            let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0, glowX = 0, glowY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+            });
+
+            function updateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                if (cursor) { cursor.style.left = `${cursorX}px`; cursor.style.top = `${cursorY}px`; }
+
+                dotX += (mouseX - dotX) * 0.35;
+                dotY += (mouseY - dotY) * 0.35;
+                if (cursorDot) { cursorDot.style.left = `${dotX}px`; cursorDot.style.top = `${dotY}px`; }
+
+                glowX += (mouseX - glowX) * 0.08;
+                glowY += (mouseY - glowY) * 0.08;
+                if (glowBlob) { glowBlob.style.left = `${glowX}px`; glowBlob.style.top = `${glowY}px`; }
+
+                requestAnimationFrame(updateCursor);
+            }
+            updateCursor();
+
+            // Link click hover events
+            function hoverClickables() {
+                const clickables = document.querySelectorAll('a, button, .tab-btn, .preset-card');
+                clickables.forEach(item => {
+                    item.addEventListener('mouseenter', () => document.body.classList.add('clickable-hovered'));
+                    item.addEventListener('mouseleave', () => document.body.classList.remove('clickable-hovered'));
+                });
+            }
+            hoverClickables();
+
+            // Page transitions
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            const transitionLogo = document.querySelector('.page-transition-logo');
+
+            if (transitionOverlay) {
+                gsap.set(transitionOverlay, { y: '0%' });
+                gsap.timeline()
+                    .to(transitionLogo, { opacity: 1, y: 0, duration: 0.4, delay: 0.2 })
+                    .to(transitionOverlay, {
+                        y: '-100%', duration: 0.6, ease: 'power3.inOut',
+                        onComplete: () => {
+                            gsap.set(transitionOverlay, { y: '100%' });
+                            gsap.set(transitionLogo, { opacity: 0, y: 20 });
+                        }
+                    });
+            }
+
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (!link) return;
+                const href = link.getAttribute('href');
+                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.getAttribute('target') === '_blank') return;
+
+                e.preventDefault();
+                document.body.classList.remove('clickable-hovered');
+                gsap.to(transitionOverlay, {
+                    y: '0%', duration: 0.5, ease: 'power3.inOut',
+                    onComplete: () => window.location.href = href
+                });
+            });
+
+            // ==========================================================================
+            // NEURAL CHAT SIMULATOR INTERACTIVE LOGICS
+            // ==========================================================================
+            const presetCards = document.querySelectorAll('.preset-card');
+            const promptInput = document.getElementById('ai-prompt-input');
+            const sendBtn = document.getElementById('ai-send-btn');
+            const chatScreen = document.getElementById('ai-chat-screen');
+            
+            const tokenInputEl = document.getElementById('input-token-cnt');
+            const tokenOutputEl = document.getElementById('output-token-cnt');
+            const feeEl = document.getElementById('query-fee-val');
+
+            const responses = {
+                "auditor": "AUDIT REPORT:\n\n**Warning (Memory Leak detected)**\n`open('data.txt').read()` opens a file stream without declaring a context block. On high frequency loads, the OS open-file descriptor limit will exceed, locking process threads.\n\n**Refactored Version:**\n```python\nwith open('data.txt') as f:\n    data = f.read()\n```\nThis automatically disposes file resources on execution block exit.",
+                "analyst": "QUERY AUDIT RESULTS:\n\n**Observation:**\nThe query `SELECT * FROM orders` causes index inefficiencies on scaling databases because `SELECT *` disables optimized column index parsing. \n\n**Optimization Plan:**\n1. Target required parameters: `SELECT id, order_date, status...`\n2. Verify `user_id` has a B-Tree indexing sequence configured.\n\n**Optimized Query:**\n```sql\nSELECT id, total_fee, status \nFROM orders \nWHERE user_id = 12 \nORDER BY order_date DESC \nLIMIT 10;\n```",
+                "engineer": "SYSTEM INSTRUCTION SCHEMA:\n\nTo restrict completions to strict JSON schema outputs, declare system instructions in prompt payloads:\n\n```json\n{\n  \"role\": \"system\",\n  \"content\": \"You are a data serialization API. You answer exclusively in JSON objects matching the schema. Do not write normal conversational text, introduction greetings, or trailing comments. Output raw JSON ONLY.\"\n}\n```"
+            };
+
+            presetCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const prompt = card.dataset.prompt;
+                    promptInput.value = prompt;
+                    promptInput.focus();
+                    gsap.fromTo(card, { scale: 0.96 }, { scale: 1, duration: 0.2 });
+                });
+            });
+
+            sendBtn.addEventListener('click', () => {
+                const text = promptInput.value.trim();
+                if (!text) return;
+
+                sendBtn.disabled = true;
+                promptInput.disabled = true;
+
+                // Add User Chat Bubble
+                const userBubble = document.createElement('div');
+                userBubble.className = "chat-bubble user";
+                userBubble.textContent = text;
+                chatScreen.appendChild(userBubble);
+                chatScreen.scrollTop = chatScreen.scrollHeight;
+
+                promptInput.value = "";
+
+                // Calculate random token counters
+                const inputTokens = Math.floor(text.length / 4) + 12;
+                tokenInputEl.textContent = inputTokens;
+
+                // Determine Response text
+                let agentType = "assistant";
+                let rawResponse = "Connecting with models weights... Mock completion resolved successfully.";
+
+                presetCards.forEach(card => {
+                    if (text.includes(card.dataset.prompt.substring(0, 15))) {
+                        agentType = card.dataset.agent;
+                    }
+                });
+
+                if (responses[agentType]) {
+                    rawResponse = responses[agentType];
+                } else {
+                    rawResponse = `I have received your custom prompt: "${text}". I have parsed this layout context and fed it into our system parameters. Our pipeline streams outputs directly character-by-character.`;
+                }
+
+                // Set typing loaders
+                setTimeout(() => {
+                    const assistantBubble = document.createElement('div');
+                    assistantBubble.className = "chat-bubble assistant";
+                    assistantBubble.innerHTML = "Thinking...";
+                    chatScreen.appendChild(assistantBubble);
+                    chatScreen.scrollTop = chatScreen.scrollHeight;
+
+                    // Stream typing letters
+                    let charIdx = 0;
+                    assistantBubble.innerHTML = "";
+                    
+                    const textLength = rawResponse.length;
+                    const interval = setInterval(() => {
+                        assistantBubble.innerHTML = formatMarkdown(rawResponse.substring(0, charIdx + 1));
+                        charIdx++;
+                        chatScreen.scrollTop = chatScreen.scrollHeight;
+
+                        if (charIdx >= textLength) {
+                            clearInterval(interval);
+                            
+                            // Update output tokens
+                            const outputTokens = Math.floor(textLength / 4) + 20;
+                            tokenOutputEl.textContent = outputTokens;
+
+                            // Calculate query fee ($0.000015 per input token, $0.00006 per output token)
+                            const queryFee = (inputTokens * 0.0000015) + (outputTokens * 0.000006);
+                            feeEl.textContent = `$${queryFee.toFixed(5)}`;
+
+                            sendBtn.disabled = false;
+                            promptInput.disabled = false;
+                            hoverClickables();
+                        }
+                    }, 8); // Speedy typing speed
+
+                }, 1000);
+            });
+
+            // Mini markdown parser helper
+            function formatMarkdown(src) {
+                return src
+                    .replace(/\n/g, '<br>')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/`(.*?)`/g, '<code style="background:#111827; padding:2px 4px; border-radius:4px; font-family:monospace; color:var(--accent-cyan);">$1</code>')
+                    .replace(/```(.*?)```/g, '<pre style="background:#090d16; padding:10px; border-radius:6px; font-family:monospace; margin-top:8px; overflow-x:auto; border:1px solid var(--card-border);">$1</pre>');
+            }
+
+            // Interactive particles system
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let particleCount = 60;
+            let mouse = { x: null, y: null, radius: 150 };
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX; mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseout', () => {
+                mouse.x = null; mouse.y = null;
+            });
+
+            class Particle {
+                constructor(x, y, dx, dy, size, color) {
+                    this.x = x; this.y = y; this.dx = dx; this.dy = dy; this.size = size; this.color = color;
+                }
+                draw() {
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill();
+                }
+                update() {
+                    if (this.x + this.size > canvas.width || this.x - this.size < 0) this.dx = -this.dx;
+                    if (this.y + this.size > canvas.height || this.y - this.size < 0) this.dy = -this.dy;
+                    this.x += this.dx; this.y += this.dy;
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let diffX = this.x - mouse.x; let diffY = this.y - mouse.y;
+                        let distance = Math.sqrt(diffX * diffX + diffY * diffY);
+                        if (distance < mouse.radius) {
+                            let force = (mouse.radius - distance) / mouse.radius;
+                            this.x += (diffX / distance) * force * 3; this.y += (diffY / distance) * force * 3;
+                        }
+                    }
+                    this.draw();
+                }
+            }
+
+            window.initParticles = function() {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                particles = [];
+                const isLightTheme = document.body.classList.contains('light-theme');
+                const particleColor = isLightTheme ? 'rgba(8, 145, 178, 0.2)' : 'rgba(6, 182, 212, 0.2)';
+                for (let i = 0; i < particleCount; i++) {
+                    let size = Math.random() * 2 + 1;
+                    particles.push(new Particle(
+                        Math.random() * canvas.width, Math.random() * canvas.height,
+                        (Math.random() - 0.5) * 0.6, (Math.random() - 0.5) * 0.6,
+                        size, particleColor
+                    ));
+                }
+            };
+
+            function connectParticles() {
+                const isLightTheme = document.body.classList.contains('light-theme');
+                const lineColorBase = isLightTheme ? '8, 145, 178' : '6, 182, 212';
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 110) {
+                            ctx.strokeStyle = `rgba(${lineColorBase}, ${(1 - (distance / 110)) * 0.12})`;
+                            ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) particles[i].update();
+                connectParticles();
+                requestAnimationFrame(animateParticles);
+            }
+
+            window.initParticles();
+            animateParticles();
+            window.addEventListener('resize', () => window.initParticles());
+        });
+    </script>
+</body>
+</html>

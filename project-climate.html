@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Case Study: Global Climate Insights - Data Analytics Dashboard by Bevara Sasi Kumar.">
+    <meta name="author" content="Bevara Sasi Kumar">
+    <title>Global Climate Insights | Case Study</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific Styles for Climate Dashboard Demo */
+        .climate-dashboard {
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-top: 20px;
+        }
+        .climate-controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .climate-select {
+            background-color: var(--input-bg);
+            border: 1px solid var(--input-border);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: var(--radius-md);
+            outline: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .climate-chart-container {
+            background-color: #030712;
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            height: 240px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .chart-y-axis {
+            position: absolute;
+            left: 10px;
+            top: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+            border-right: 1px dashed rgba(255,255,255,0.1);
+            padding-right: 8px;
+        }
+        .chart-x-axis {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: monospace;
+            padding-left: 45px;
+            margin-top: 8px;
+        }
+        .climate-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+            width: 12%;
+            position: relative;
+        }
+        .climate-bar {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.6s ease;
+            position: relative;
+        }
+        .climate-bar-val {
+            position: absolute;
+            top: -22px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+        .climate-info-box {
+            padding: 16px;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            min-height: 80px;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+
+    <!-- Page Transition Curtain -->
+    <div class="page-transition-overlay">
+        <div class="page-transition-logo">&lt;BSK /&gt;</div>
+        <div class="page-transition-loader"></div>
+    </div>
+
+    <!-- Background Cursor Glow Blob -->
+    <div class="cursor-glow-blob" id="cursor-glow-blob"></div>
+
+    <!-- Background Canvas for AI/Data Particle System -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="header scrolled">
+        <div class="container nav-container">
+            <a href="index.html#home" class="logo">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+            </a>
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                    <li><a href="projects.html" class="nav-link active">Projects</a></li>
+                    <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                    <li><a href="index.html#education" class="nav-link">Education</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Header -->
+        <section class="case-study-hero">
+            <div class="container">
+                <a href="projects.html" class="cs-back-btn"><i class="fas fa-arrow-left"></i> Back to Projects</a>
+                <span class="section-subtitle">Case Study</span>
+                <h1 style="font-size: 3rem; font-family: var(--font-heading); font-weight: 800;">GLOBAL CLIMATE INSIGHTS</h1>
+                <p style="color: var(--accent-cyan); font-family: var(--font-heading); font-weight: 700; margin-top: 6px; letter-spacing: 1px; text-transform: uppercase;">
+                    Visualizing 140 Years of Climate Anomalies
+                </p>
+
+                <div class="case-study-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <span class="meta-value">Data Analytics</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Data Toolkit</span>
+                        <span class="meta-value">Python, Pandas, NumPy, Tableau</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Tech Stack</span>
+                        <span class="meta-value">Tableau API, HTML5, CSS Variables, JS</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date</span>
+                        <span class="meta-value">Nov 2024</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Content -->
+        <section class="section-padding" style="padding-top: 40px;">
+            <div class="container">
+                <div class="case-study-layout">
+                    <!-- Left Column: Details -->
+                    <div class="cs-left-col">
+                        <div class="cs-section">
+                            <h3>Project Overview</h3>
+                            <p>
+                                <strong>Global Climate Insights</strong> is an analytical data mining research dashboard designed to clean, process, and visualize temperature anomalies spanning from 1880 to the present day. By leveraging NASA GISS temperature indices, this project compiles large meteorological datasets to build accessible, storytelling charts.
+                            </p>
+                            <p>
+                                Using python data parsing pipelines, we scrubbed raw text listings, handled empty cells, normalized regional variance indices, and structured databases for ingestion into interactive dashboards.
+                            </p>
+                        </div>
+
+                        <div class="cs-section">
+                            <h3>Methodology & Analytics</h3>
+                            <p><strong>1. Scrape & Wrangle (Python/Pandas)</strong><br>
+                               Imported monthly temperature deviations across global stations. Handled missing data points using linear interpolation, and grouped monthly records into decadal averages for analysis.
+                            </p>
+                            <p><strong>2. Trend Analysis & Moving Averages</strong><br>
+                               Calculated 5-year and 10-year rolling moving averages to smooth short-term noise, illustrating a clear long-term upward warming trajectory.
+                            </p>
+                            <p><strong>3. Tableau Interactivity Integration</strong><br>
+                               Designed custom dashboard layouts displaying geo-spatial temperature heatmaps alongside global CO2 emission curves to visually examine the correlation.
+                            </p>
+                        </div>
+
+                        <div class="cs-section">
+                            <h3>Interactive Climate Simulator</h3>
+                            <p>
+                                Explore the temperature anomalies across different regions. Use the dropdown controls to select a **Region** and a **Year Group**, and observe how regional temperature anomalies (measured in °C deviations from the 1951-1980 baseline) have shifted.
+                            </p>
+                            
+                            <!-- Interactive Climate Simulator Dashboard -->
+                            <div class="climate-dashboard glass-card">
+                                <h4 style="font-family: var(--font-heading); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                    <i class="fas fa-chart-line" style="color: var(--accent-cyan);"></i> Temperature Anomaly Simulator
+                                </h4>
+
+                                <!-- Controls -->
+                                <div class="climate-controls">
+                                    <div class="form-group" style="flex: 1; min-width: 150px; gap: 4px;">
+                                        <label for="region-select">Select Region</label>
+                                        <select class="climate-select" id="region-select">
+                                            <option value="global">Global Average</option>
+                                            <option value="north">Northern Hemisphere</option>
+                                            <option value="south">Southern Hemisphere</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="flex: 1; min-width: 150px; gap: 4px;">
+                                        <label for="period-select">Select Year Period</label>
+                                        <select class="climate-select" id="period-select">
+                                            <option value="1880">1880 - 1900</option>
+                                            <option value="1920">1910 - 1930</option>
+                                            <option value="1960">1950 - 1970</option>
+                                            <option value="2000">1990 - 2010</option>
+                                            <option value="2024">2015 - 2026</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Chart -->
+                                <div class="climate-chart-container">
+                                    <div class="chart-y-axis">
+                                        <span>+1.2°C</span>
+                                        <span>+0.6°C</span>
+                                        <span>0.0°C (Baseline)</span>
+                                        <span>-0.3°C</span>
+                                    </div>
+                                    
+                                    <!-- Dynamic Bars (5 bars representing subdivisions) -->
+                                    <div style="display: flex; width: 100%; height: 100%; padding-left: 55px; align-items: flex-end; justify-content: space-around;">
+                                        <div class="climate-bar-wrapper">
+                                            <span class="climate-bar-val" id="val-1">-0.21°C</span>
+                                            <div class="climate-bar" id="bar-1" style="height: 25%; background: #3b82f6;"></div>
+                                        </div>
+                                        <div class="climate-bar-wrapper">
+                                            <span class="climate-bar-val" id="val-2">-0.18°C</span>
+                                            <div class="climate-bar" id="bar-2" style="height: 28%; background: #3b82f6;"></div>
+                                        </div>
+                                        <div class="climate-bar-wrapper">
+                                            <span class="climate-bar-val" id="val-3">-0.15°C</span>
+                                            <div class="climate-bar" id="bar-3" style="height: 31%; background: #60a5fa;"></div>
+                                        </div>
+                                        <div class="climate-bar-wrapper">
+                                            <span class="climate-bar-val" id="val-4">-0.12°C</span>
+                                            <div class="climate-bar" id="bar-4" style="height: 34%; background: #60a5fa;"></div>
+                                        </div>
+                                        <div class="climate-bar-wrapper">
+                                            <span class="climate-bar-val" id="val-5">-0.08°C</span>
+                                            <div class="climate-bar" id="bar-5" style="height: 37%; background: #93c5fd;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chart-x-axis">
+                                    <span>Year 1</span>
+                                    <span>Year 2</span>
+                                    <span>Year 3</span>
+                                    <span>Year 4</span>
+                                    <span>Year 5</span>
+                                </div>
+
+                                <!-- Narrative Summary box -->
+                                <div class="climate-info-box" id="climate-info-box" style="margin-top: 16px;">
+                                    <strong>Era Details:</strong> 1880s initial records. Minor cooling values reflect standard solar activity and low industrial carbon output before major technological shifts.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Visuals & Stats -->
+                    <div class="cs-right-col">
+                        <div class="glass-card" style="padding: 28px; border-radius: var(--radius-lg); margin-bottom: 30px;">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 20px; font-size: 1.25rem;">Scrubbing Details</h4>
+                            
+                            <ul style="display: flex; flex-direction: column; gap: 16px;">
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-filter" style="color: var(--accent-cyan); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Outlier Isolation</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Filtered faulty weather balloon outliers using standard deviation margins.</span>
+                                    </div>
+                                </li>
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-calculator" style="color: var(--accent-cyan); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Linear Regression</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Mapped regression models displaying correlation statistics.</span>
+                                    </div>
+                                </li>
+                                <li style="display: flex; gap: 12px;">
+                                    <i class="fas fa-file-csv" style="color: var(--accent-cyan); font-size: 1.2rem; margin-top: 3px;"></i>
+                                    <div>
+                                        <strong style="display: block; color: var(--text-primary);">Database Loading</strong>
+                                        <span style="font-size: 0.85rem; color: var(--text-secondary);">Automated daily parsing updates into MySQL database pipelines.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-card" style="padding: 28px; border-radius: var(--radius-lg);">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 12px; font-size: 1.25rem;">Dataset Volume Metrics</h4>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px;">
+                                <div>
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">Total Handled Rows</span>
+                                    <div class="progress-bar-container" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 85%; background: var(--accent-gradient);"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: var(--accent-cyan); float: right; margin-top: 4px;">500,000+ Data Entries</span>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">Scrubbing Accuracy</span>
+                                    <div class="progress-bar-container" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 99.8%; background: var(--accent-gradient);"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; color: var(--accent-cyan); float: right; margin-top: 4px;">99.8% Cleansed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="logo-accent">&lt;</span>BSK<span class="logo-accent"> /&gt;</span>
+                <p>Data Analyst & AI Full Stack Developer</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html#home">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#skills">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2026 Bevara Sasi Kumar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- JavaScript logics for Cursor, Transitions, Particles & Climate Simulator -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme setup
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = themeToggleBtn.querySelector('i');
+            const savedTheme = localStorage.getItem('theme') || 'dark-theme';
+            document.body.className = savedTheme;
+
+            themeToggleBtn.addEventListener('click', () => {
+                if (document.body.classList.contains('dark-theme')) {
+                    document.body.classList.replace('dark-theme', 'light-theme');
+                    localStorage.setItem('theme', 'light-theme');
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    document.body.classList.replace('light-theme', 'dark-theme');
+                    localStorage.setItem('theme', 'dark-theme');
+                    themeIcon.className = 'fas fa-moon';
+                }
+                if (window.initParticles) window.initParticles();
+            });
+
+            // Mobile menu
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('open');
+                navMenu.classList.toggle('open');
+            });
+
+            // Custom cursor follow physics
+            const cursor = document.querySelector('.custom-cursor');
+            const cursorDot = document.querySelector('.custom-cursor-dot');
+            const glowBlob = document.getElementById('cursor-glow-blob');
+            let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0, dotX = 0, dotY = 0, glowX = 0, glowY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+            });
+
+            function updateCursor() {
+                cursorX += (mouseX - cursorX) * 0.15;
+                cursorY += (mouseY - cursorY) * 0.15;
+                if (cursor) { cursor.style.left = `${cursorX}px`; cursor.style.top = `${cursorY}px`; }
+
+                dotX += (mouseX - dotX) * 0.35;
+                dotY += (mouseY - dotY) * 0.35;
+                if (cursorDot) { cursorDot.style.left = `${dotX}px`; cursorDot.style.top = `${dotY}px`; }
+
+                glowX += (mouseX - glowX) * 0.08;
+                glowY += (mouseY - glowY) * 0.08;
+                if (glowBlob) { glowBlob.style.left = `${glowX}px`; glowBlob.style.top = `${glowY}px`; }
+
+                requestAnimationFrame(updateCursor);
+            }
+            updateCursor();
+
+            // Link click hover events
+            function hoverClickables() {
+                const clickables = document.querySelectorAll('a, button, .tab-btn, .climate-select');
+                clickables.forEach(item => {
+                    item.addEventListener('mouseenter', () => document.body.classList.add('clickable-hovered'));
+                    item.addEventListener('mouseleave', () => document.body.classList.remove('clickable-hovered'));
+                });
+            }
+            hoverClickables();
+
+            // Page transitions
+            const transitionOverlay = document.querySelector('.page-transition-overlay');
+            const transitionLogo = document.querySelector('.page-transition-logo');
+
+            if (transitionOverlay) {
+                gsap.set(transitionOverlay, { y: '0%' });
+                gsap.timeline()
+                    .to(transitionLogo, { opacity: 1, y: 0, duration: 0.4, delay: 0.2 })
+                    .to(transitionOverlay, {
+                        y: '-100%', duration: 0.6, ease: 'power3.inOut',
+                        onComplete: () => {
+                            gsap.set(transitionOverlay, { y: '100%' });
+                            gsap.set(transitionLogo, { opacity: 0, y: 20 });
+                        }
+                    });
+            }
+
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (!link) return;
+                const href = link.getAttribute('href');
+                if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || link.getAttribute('target') === '_blank') return;
+
+                e.preventDefault();
+                document.body.classList.remove('clickable-hovered');
+                gsap.to(transitionOverlay, {
+                    y: '0%', duration: 0.5, ease: 'power3.inOut',
+                    onComplete: () => window.location.href = href
+                });
+            });
+
+            // ==========================================================================
+            // CLIMATE INSIGHTS INTERACTIVE LOGICS
+            // ==========================================================================
+            const regionSelect = document.getElementById('region-select');
+            const periodSelect = document.getElementById('period-select');
+            const infoBox = document.getElementById('climate-info-box');
+            const xLabels = document.querySelector('.chart-x-axis').querySelectorAll('span');
+
+            // Temperature anomaly data matrices
+            const dataset = {
+                "global": {
+                    "1880": { values: [-0.21, -0.18, -0.15, -0.12, -0.08], years: [1880, 1885, 1890, 1895, 1900], text: "1880-1900 (Global): Industrial revolution begins. General cooling trends are dominant due to high volcanic activity and early low CO2 levels." },
+                    "1920": { values: [-0.11, -0.08, -0.05, 0.02, 0.04], years: [1910, 1915, 1920, 1925, 1930], text: "1910-1930 (Global): Early industrial expansion starts driving up energy generation. Minor warming anomalies appear globally." },
+                    "1960": { values: [0.03, 0.05, 0.08, 0.02, 0.04], years: [1950, 1955, 1960, 1965, 1970], text: "1950-1970 (Global): Post-war manufacturing expansion. Volcanic aerosols temporarily mask carbon accumulation, showing moderate stabilization." },
+                    "2000": { values: [0.35, 0.42, 0.51, 0.58, 0.65], years: [1990, 1995, 2000, 2005, 2010], text: "1990-2010 (Global): Exponential carbon emissions lead to steep warming anomalies. Glacier melt rates accelerate globally." },
+                    "2024": { values: [0.85, 0.92, 1.05, 1.15, 1.22], years: [2016, 2018, 2020, 2022, 2024], text: "2015-2026 (Global): Extreme record-breaking global anomalies. Consecutive warmest years in recorded human history." }
+                },
+                "north": {
+                    "1880": { values: [-0.28, -0.22, -0.19, -0.14, -0.06], years: [1880, 1885, 1890, 1895, 1900], text: "1880-1900 (Northern): Coal-driven industrial expansion in Western Europe and North America begins. High seasonal variance." },
+                    "1920": { values: [-0.14, -0.05, 0.02, 0.08, 0.12], years: [1910, 1915, 1920, 1925, 1930], text: "1910-1930 (Northern): Rapid urban growth creates local heat effects. Deforestation trends trigger initial agricultural warming." },
+                    "1960": { values: [0.06, 0.09, 0.12, 0.04, 0.07], years: [1950, 1955, 1960, 1965, 1970], text: "1950-1970 (Northern): Intense industrial aerosol emissions in Europe/US offset green-house warming temporarily." },
+                    "2000": { values: [0.48, 0.59, 0.68, 0.76, 0.85], years: [1990, 1995, 2000, 2005, 2010], text: "1990-2010 (Northern): Arctic amplification starts showing strong feedback loops. Northern ice sheets recede rapidly." },
+                    "2024": { values: [1.12, 1.25, 1.38, 1.48, 1.56], years: [2016, 2018, 2020, 2022, 2024], text: "2015-2026 (Northern): Rapid heat waves in high-latitude land areas. Arctic warming rates outpace global averages by 3x." }
+                },
+                "south": {
+                    "1880": { values: [-0.15, -0.14, -0.12, -0.10, -0.09], years: [1880, 1885, 1890, 1895, 1900], text: "1880-1900 (Southern): Heavily moderated by massive Southern Ocean thermal inertia. Data points remain highly stable." },
+                    "1920": { values: [-0.08, -0.11, -0.12, -0.04, -0.03], years: [1910, 1915, 1920, 1925, 1930], text: "1910-1930 (Southern): Oceanic buffers mask global thermal increases. Minimal agricultural pollution changes." },
+                    "1960": { values: [-0.01, 0.01, 0.03, 0.00, 0.01], years: [1950, 1955, 1960, 1965, 1970], text: "1950-1970 (Southern): Oceans absorb over 90% of excess planetary heat energy, showing stable surface deviations." },
+                    "2000": { values: [0.22, 0.25, 0.34, 0.40, 0.45], years: [1990, 1995, 2000, 2005, 2010], text: "1990-2010 (Southern): Ocean warming trends become clearly manifest. Antarctica margins show preliminary shelf collapses." },
+                    "2024": { values: [0.58, 0.62, 0.72, 0.82, 0.88], years: [2016, 2018, 2020, 2022, 2024], text: "2015-2026 (Southern): Southern ocean currents accelerate. Marine heatwaves disrupt major Antarctic ecosystems." }
+                }
+            };
+
+            function updateSimulator() {
+                const reg = regionSelect.value;
+                const per = periodSelect.value;
+                const activeSet = dataset[reg][per];
+
+                infoBox.innerHTML = `<strong>Era Details:</strong> ${activeSet.text}`;
+
+                for (let i = 0; i < 5; i++) {
+                    const val = activeSet.values[i];
+                    const valEl = document.getElementById(`val-${i + 1}`);
+                    const barEl = document.getElementById(`bar-${i + 1}`);
+
+                    // Label value update
+                    valEl.textContent = `${val > 0 ? '+' : ''}${val.toFixed(2)}°C`;
+                    xLabels[i].textContent = activeSet.years[i];
+
+                    // Height calculation: anomaly range -0.3 to +1.2.
+                    // Let's normalize height in % of container height.
+                    const minVal = -0.3;
+                    const maxVal = 1.25;
+                    let pct = ((val - minVal) / (maxVal - minVal)) * 100;
+                    if (pct < 5) pct = 5; // Minimum visual bar height
+
+                    barEl.style.height = `${pct}%`;
+
+                    // Dynamic color coding: Blue for cool anomalies, orange/red for warm
+                    if (val < 0) {
+                        barEl.style.background = 'linear-gradient(to top, #1d4ed8, #3b82f6)'; // Dark blue to light blue
+                    } else if (val < 0.3) {
+                        barEl.style.background = 'linear-gradient(to top, #4b5563, #9ca3af)'; // Gray neutral
+                    } else if (val < 0.8) {
+                        barEl.style.background = 'linear-gradient(to top, #ea580c, #f97316)'; // Orange
+                    } else {
+                        barEl.style.background = 'linear-gradient(to top, #b91c1c, #ef4444)'; // Deep Red
+                    }
+                }
+            }
+
+            regionSelect.addEventListener('change', updateSimulator);
+            periodSelect.addEventListener('change', updateSimulator);
+
+            // Run initial setup
+            updateSimulator();
+
+            // Interactive particles system
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let particleCount = 60;
+            let mouse = { x: null, y: null, radius: 150 };
+
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX; mouse.y = e.clientY;
+            });
+            window.addEventListener('mouseout', () => {
+                mouse.x = null; mouse.y = null;
+            });
+
+            class Particle {
+                constructor(x, y, dx, dy, size, color) {
+                    this.x = x; this.y = y; this.dx = dx; this.dy = dy; this.size = size; this.color = color;
+                }
+                draw() {
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = this.color; ctx.fill();
+                }
+                update() {
+                    if (this.x + this.size > canvas.width || this.x - this.size < 0) this.dx = -this.dx;
+                    if (this.y + this.size > canvas.height || this.y - this.size < 0) this.dy = -this.dy;
+                    this.x += this.dx; this.y += this.dy;
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        let diffX = this.x - mouse.x; let diffY = this.y - mouse.y;
+                        let distance = Math.sqrt(diffX * diffX + diffY * diffY);
+                        if (distance < mouse.radius) {
+                            let force = (mouse.radius - distance) / mouse.radius;
+                            this.x += (diffX / distance) * force * 3; this.y += (diffY / distance) * force * 3;
+                        }
+                    }
+                    this.draw();
+                }
+            }
+
+            window.initParticles = function() {
+                canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+                particles = [];
+                const isLightTheme = document.body.classList.contains('light-theme');
+                const particleColor = isLightTheme ? 'rgba(8, 145, 178, 0.2)' : 'rgba(6, 182, 212, 0.2)';
+                for (let i = 0; i < particleCount; i++) {
+                    let size = Math.random() * 2 + 1;
+                    particles.push(new Particle(
+                        Math.random() * canvas.width, Math.random() * canvas.height,
+                        (Math.random() - 0.5) * 0.6, (Math.random() - 0.5) * 0.6,
+                        size, particleColor
+                    ));
+                }
+            };
+
+            function connectParticles() {
+                const isLightTheme = document.body.classList.contains('light-theme');
+                const lineColorBase = isLightTheme ? '8, 145, 178' : '6, 182, 212';
+                for (let a = 0; a < particles.length; a++) {
+                    for (let b = a; b < particles.length; b++) {
+                        let dx = particles[a].x - particles[b].x;
+                        let dy = particles[a].y - particles[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 110) {
+                            ctx.strokeStyle = `rgba(${lineColorBase}, ${(1 - (distance / 110)) * 0.12})`;
+                            ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particles.length; i++) particles[i].update();
+                connectParticles();
+                requestAnimationFrame(animateParticles);
+            }
+
+            window.initParticles();
+            animateParticles();
+            window.addEventListener('resize', () => window.initParticles());
+        });
+    </script>
+</body>
+</html>
