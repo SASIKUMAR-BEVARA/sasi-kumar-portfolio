@@ -1,0 +1,26 @@
+# Node modules
+node_modules/
+# Dependency directories
+jspm_packages/
+# Build output
+/dist/
+# Logs
+npm-debug.log*
+# OS files
+.DS_Store
+Thumbs.db
+# IDE files
+.vscode/
+.idea/
+# Environment files
+.env
+# Temporary files
+*.tmp
+*.bak
+*.swp
+# Coverage
+coverage/
+# Public/published files
+/public/
+# Other ignored files
+*.log
